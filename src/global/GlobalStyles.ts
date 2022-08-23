@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
-import 'antd/dist/antd.css'
+import 'antd/dist/antd.min.css'
 
 export const GlobalStyles = createGlobalStyle`
   :root {
