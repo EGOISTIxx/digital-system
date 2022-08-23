@@ -1,0 +1,8 @@
+{
+  "printWidth": 60,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "semi": false,
+  "importOrder": ["^react$", "^((?!(@/|\\./)).)*$", "^@/(.*)$", "^[./]"],
+  "importOrderSeparation": true
+}
