@@ -31,5 +31,5 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ### `yarn serve`
 
-Runs the app in the production mode. \
+Runs the app in the production mode after app build. \
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
