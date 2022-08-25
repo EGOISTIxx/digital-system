@@ -15,9 +15,9 @@ process.on('unhandledRejection', (err) => {
 // Ensure environment variables are read.
 require('../config/env')
 
-const jest = require('jest')
+import jest from 'jest'
 const execSync = require('child_process').execSync
-let argv = process.argv.slice(2)
+const argv = process.argv.slice(2)
 
 function isInGitRepository() {
   try {
