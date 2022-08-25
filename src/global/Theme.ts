@@ -29,6 +29,7 @@ export const theme = {
     },
   },
   fontSize: {
-    essize: '1rem'
+    essize: '1rem',
+    ssize: '2rem',
   }
 }
