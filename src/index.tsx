@@ -7,7 +7,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 
 import App from './App'
 import { GlobalStyles } from './global/GlobalStyles'
-import { persistor, store } from './store'
+import { store } from './store'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -17,10 +17,10 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <PersistGate loading={<div>Loading...</div>} persistor={persistor}>
+        {/* <PersistGate loading={<div>Loading...</div>} persistor={persistor}> */}
           <GlobalStyles />
           <App />
-        </PersistGate>
+        {/* </PersistGate> */}
       </Provider>
     </BrowserRouter>
   </React.StrictMode>

@@ -19,9 +19,12 @@ import {
   REHYDRATE,
 } from 'redux-persist'
 
+import { authAPI } from '../service/auth/authApi'
 import { RESET_STATE_ACTION_TYPE } from './reducers/resetState'
 
-const reducers = {}
+const reducers = {
+  [authAPI.reducerPath]: authAPI.reducer,
+}
 
 const combinedReducer =
   combineReducers<typeof reducers>(reducers)
@@ -51,10 +54,8 @@ export const store = configureStore({
           REHYDRATE,
         ],
       },
-    }).concat([]),
+    }).concat([authAPI.middleware]),
 })
-
-export const persistor = persistStore(store)
 
 export type AppDispatch = typeof store.dispatch
 export type RootState = ReturnType<typeof combinedReducer>
