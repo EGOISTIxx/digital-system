@@ -20,6 +20,7 @@ export const theme = {
     },
     green: {
       green3: '#6EE7B7',
+      green4: '#27C583',
       green6: '#059669',
     },
     red: {
@@ -27,4 +28,7 @@ export const theme = {
       red6: '#DC2626',
     },
   },
+  fontSize: {
+    essize: '1rem'
+  }
 }
