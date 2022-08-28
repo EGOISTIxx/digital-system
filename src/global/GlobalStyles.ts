@@ -1,5 +1,5 @@
-import { createGlobalStyle } from 'styled-components'
 import 'antd/dist/antd.min.css'
+import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyles = createGlobalStyle`
   :root {
@@ -30,5 +30,31 @@ export const GlobalStyles = createGlobalStyle`
   
   li > * {
     color: #ffffff !important;
+  }
+
+  .ant-form-item-control-input-content {
+    input {
+      font-size: 0.8rem;
+      font-size: 13px;
+      line-height: 20px;
+      letter-spacing: 0.866667px;
+
+      &::placeholder {
+        color: #D6DCE1 !important;
+        font-weight: 700 !important;
+      }
+    }
+  }
+
+  .ant-input-affix-wrapper, 
+  .ant-input-password, 
+  .ant-form-item-control-input-content, 
+  .ant-form-item-control-input,
+  input {
+    outline: 0;
+
+    &:focus, &:hover, &:active {
+      outline: 0;
+    }
   }
 `

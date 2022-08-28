@@ -10,7 +10,6 @@ import {
 } from 'react-redux'
 import { Reducer } from 'redux'
 import {
-  persistStore,
   FLUSH,
   PAUSE,
   PERSIST,
@@ -20,9 +19,11 @@ import {
 } from 'redux-persist'
 
 import { authAPI } from '../service/auth/authApi'
-import { RESET_STATE_ACTION_TYPE } from './reducers/resetState'
+import { userReducer } from './reducers/user/user.slice'
+import { RESET_STATE_ACTION_TYPE } from './resetState'
 
 const reducers = {
+  user: userReducer,
   [authAPI.reducerPath]: authAPI.reducer,
 }
 
@@ -54,7 +55,7 @@ export const store = configureStore({
           REHYDRATE,
         ],
       },
-    }).concat([authAPI.middleware]),
+    }).concat(authAPI.middleware),
 })
 
 export type AppDispatch = typeof store.dispatch

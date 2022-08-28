@@ -3,7 +3,9 @@ export const theme = {
     gray: {
       gray1: '#FFFFFF',
       gray2: '#FDFDFD',
-      gray4: '#9CA3AF',
+      gray3: '#EDF0F3',
+      gray4: '#D6DCE1',
+      gray7: '#6C757D',
       gray8: '#111827',
       gray9: '#0D0D0D',
       gray10: '#000000',
@@ -21,7 +23,8 @@ export const theme = {
     green: {
       green3: '#6EE7B7',
       green4: '#27C583',
-      green6: '#059669',
+      green5: '#059669',
+      green8: '#065F46',
     },
     red: {
       red3: '#FCA5A5',
@@ -31,5 +34,5 @@ export const theme = {
   fontSize: {
     essize: '1rem',
     ssize: '2rem',
-  }
+  },
 }

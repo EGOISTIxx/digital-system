@@ -8,4 +8,5 @@ export const HeaderWrapper = styled.header`
   align-items: center;
   background: ${(props) => props.theme.colors.green.green4};
   color: ${(props) => props.theme.colors.gray.gray1};
+  position: relative;
 `
