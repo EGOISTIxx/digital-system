@@ -65,8 +65,8 @@ export const LoginPage: React.FC = () => {
             isUserAuthenticated: true,
           })
         )
+        dispatch(setCredentials(values))
         navigate('/profile')
-        dispatch(setCredentials({ ...values }))
       } else {
         //TODO: error emulation
         const errorMessage = systemMessages.find(

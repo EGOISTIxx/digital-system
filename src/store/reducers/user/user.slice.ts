@@ -4,9 +4,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState: {
     // TODO: remove this localStorage methods when RestAPI will be create
-    user: JSON.parse(
-      localStorage.getItem('userData')
-    ),
+    user: JSON.parse(localStorage.getItem('userData')),
     isUserAuthenticated: Boolean(
       JSON.parse(
         localStorage.getItem('isUserAuthenticated')
@@ -15,8 +13,8 @@ const userSlice = createSlice({
   },
   reducers: {
     setCredentials: (state, action) => {
-      const { user } = action.payload
-      state.user = user
+      const { login, password } = action.payload
+      state.user = { login, password }
     },
     setIsUserAuthenticated: (state, action) => {
       const { isUserAuthenticated } = action.payload
@@ -29,7 +27,11 @@ const userSlice = createSlice({
   },
 })
 
-export const { setCredentials, logout, setIsUserAuthenticated } = userSlice.actions
+export const {
+  setCredentials,
+  logout,
+  setIsUserAuthenticated,
+} = userSlice.actions
 
 export const userReducer = userSlice.reducer
 
