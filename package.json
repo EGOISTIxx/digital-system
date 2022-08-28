@@ -70,12 +70,12 @@
     "workbox-webpack-plugin": "^6.4.1"
   },
   "scripts": {
-    "start": "node scripts/start.js",
-    "build:dev": "NODE_ENV=development BABEL_ENV=development node scripts/build.js",
-    "build:prod": "NODE_ENV=production BABEL_ENV=production node scripts/build.js",
+    "start": "node scripts/start.ts",
+    "build:dev": "NODE_ENV=development BABEL_ENV=development node scripts/build.ts",
+    "build:prod": "NODE_ENV=production BABEL_ENV=production node scripts/build.ts",
     "build": "echo \"Please use build:dev or build:prod \" && exit 1",
     "pretty": "prettier --write \"./**/*.{js,jsx,json}\"",
-    "test": "node scripts/test.js",
+    "test": "node scripts/test.ts",
     "serve": "serve -s build"
   },
   "eslintConfig": {
