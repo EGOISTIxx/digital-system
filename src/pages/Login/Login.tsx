@@ -80,6 +80,7 @@ export const LoginPage: React.FC = () => {
   }
 
   const handleFinishError = (errorInfo) => {
+    //TODO: Release this method in the future
     console.log(errorInfo)
   }
 

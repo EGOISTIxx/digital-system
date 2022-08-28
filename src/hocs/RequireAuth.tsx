@@ -15,8 +15,6 @@ const RequireAuth = () => {
   )
   const location = useLocation()
 
-  console.log(isUserAuthenticated)
-
   return isUserAuthenticated ? (
     <Outlet />
   ) : (
