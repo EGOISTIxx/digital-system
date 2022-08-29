@@ -1,9 +1,6 @@
-import React, {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  useCallback,
-} from 'react'
+import React, { memo, useCallback } from 'react'
+
+import PropTypes from 'prop-types'
 
 import {
   StyledTextInput,
@@ -17,56 +14,48 @@ export interface TextFieldProps {
   placeholder?: string
   defaultValue?: string
   children?: React.ReactNode
-  onChange?: Dispatch<SetStateAction<string>>
+  onChange?: () => void
 }
 
-export const TextField: React.FC<TextFieldProps> = (
-  props
-) => {
-  const { children, type, onChange, ...otherProps } = props
+export const TextField: React.FC<TextFieldProps> = memo(
+  (props) => {
+    const { type, ...otherProps } = props
 
-  const handleChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      const { value: inputValue } = event.target
+    const handleBoardKeyPress = useCallback((event) => {
+      event.preventDefault()
+      return false
+    }, [])
 
-      if (
-        (!/([^A-Za-z0-9@_.])+/g.test(inputValue) ||
-          inputValue === '') &&
-        type !== 'password'
-      ) {
-        onChange(inputValue)
-      }
+    const inputProps = {
+      onCopy: handleBoardKeyPress,
+      onDrag: handleBoardKeyPress,
+      onDrop: handleBoardKeyPress,
+      onPaste: handleBoardKeyPress,
+      type,
+      ...otherProps,
+    }
 
-      if (
-        (/([^А-Яа-я])+/g.test(inputValue) ||
-          inputValue === '') &&
-        type === 'password'
-      ) {
-        onChange(inputValue)
-      }
-    },
-    [onChange]
-  )
-
-  const inputProps = {
-    children,
-    type,
-    ...otherProps,
+    return (
+      <>
+        {type !== 'password' ? (
+          <StyledTextInput
+            onPaste={(e) => {
+              e.preventDefault()
+              return false
+            }}
+            {...inputProps}
+          />
+        ) : (
+          <StyledPasswordInput {...inputProps} />
+        )}
+      </>
+    )
   }
+)
 
-  return (
-    <>
-      {type !== 'password' ? (
-        <StyledTextInput
-          onChange={handleChange}
-          {...inputProps}
-        />
-      ) : (
-        <StyledPasswordInput
-          onChange={handleChange}
-          {...inputProps}
-        />
-      )}
-    </>
-  )
+TextField.propTypes = {
+  children: PropTypes.node,
+  type: PropTypes.oneOf(['email', 'password', 'text']),
 }
+
+TextField.displayName = 'TextField'

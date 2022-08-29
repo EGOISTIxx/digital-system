@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 
 import { BaseButton } from '../UI/Button/Button'
 import {
@@ -6,36 +6,45 @@ import {
   StyledModal,
 } from './SSystemModal'
 
-export const SystemModal = (props: {
-  code: string
-  title: string
-  type: 'info' | 'success' | 'error'
-  description: string
-  isVisible: boolean
-  onCancel?: () => void
-  onOk?: () => void
-}) => {
-  const { description, title, isVisible, onCancel, onOk } =
-    props
-  //TODO: make several types of modal, like Error/Success
+export const SystemModal = memo(
+  (props: {
+    code: string
+    title: string
+    type: 'info' | 'success' | 'error'
+    description: string
+    isVisible: boolean
+    onCancel?: () => void
+    onOk?: () => void
+  }) => {
+    const {
+      description,
+      title,
+      isVisible,
+      onCancel,
+      onOk,
+    } = props
+    //TODO: make several types of modal, like Error/Success
 
-  const customFooter = () => {
+    const customFooter = () => {
+      return (
+        <BaseButton buttonType="base" onClick={onOk}>
+          Закрыть
+        </BaseButton>
+      )
+    }
+
     return (
-      <BaseButton buttonType="base" onClick={onOk}>
-        Закрыть
-      </BaseButton>
+      <StyledModal
+        visible={isVisible}
+        title={title}
+        onCancel={onCancel}
+        onOk={onOk}
+        footer={customFooter()}
+      >
+        <ModalDescription>{description}</ModalDescription>
+      </StyledModal>
     )
   }
+)
 
-  return (
-    <StyledModal
-      visible={isVisible}
-      title={title}
-      onCancel={onCancel}
-      onOk={onOk}
-      footer={customFooter()}
-    >
-      <ModalDescription>{description}</ModalDescription>
-    </StyledModal>
-  )
-}
+SystemModal.displayName = 'SystemModal'
