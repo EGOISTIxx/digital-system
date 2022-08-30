@@ -20,9 +20,11 @@ import {
 
 import { authAPI } from '../service/auth/authApi'
 import { userReducer } from './reducers/user/user.slice'
+import { systemModalReducder } from './reducers/systemModal/systemModal.slice'
 import { RESET_STATE_ACTION_TYPE } from './resetState'
 
 const reducers = {
+  systemModal: systemModalReducder,
   user: userReducer,
   [authAPI.reducerPath]: authAPI.reducer,
 }

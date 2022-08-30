@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useLocation } from 'react-router-dom'
@@ -23,7 +23,7 @@ export const User = () => {
 
   const location = useLocation()
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     dispatch(logout())
 
     // TODO: create routes file and update this method
@@ -33,7 +33,7 @@ export const User = () => {
 
     localStorage.removeItem('userData')
     localStorage.removeItem('isUserAuthenticated')
-  }
+  }, [])
 
   if (userData === null) return
 

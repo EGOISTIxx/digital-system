@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
 /* eslint-disable @typescript-eslint/prefer-namespace-keyword */
-import React, { PropsWithChildren } from 'react'
+import React, { memo, PropsWithChildren } from 'react'
+
+import { FormInstance } from 'antd'
 
 import { BaseButton } from '../UI/Button/Button'
 import {
@@ -25,7 +27,7 @@ module Auth {
     return <Title>{children}</Title>
   }
 
-  export const Field = (props: TextFieldProps) => {
+  export const Field = memo((props: TextFieldProps) => {
     const { children, ...otherProps } = props
 
     return (
@@ -33,55 +35,72 @@ module Auth {
         {children}
       </TextField>
     )
-  }
+  })
 
-  export const Form = (props: {
-    onFinish: (values) => void
-    onFinishFailed: (errorInfo) => void
-    initialValues: { login: string; password: string }
-    children: React.ReactNode | string
-  }) => {
-    const { children, ...otherProps } = props
+  export const Form = memo(
+    (props: {
+      form: FormInstance<unknown>
+      onFinish: (values) => void
+      initialValues: { login: string; password: string }
+      children: React.ReactNode | string
+      onFieldsChange: (changedField, allFields) => void
+    }) => {
+      const { children, form, ...otherProps } = props
 
-    return (
-      <StyledForm {...otherProps}>{children}</StyledForm>
-    )
-  }
+      return (
+        <StyledForm form={form} {...otherProps}>
+          {children}
+        </StyledForm>
+      )
+    }
+  )
 
-  export const FormItem = (props: {
-    children: React.ReactNode
-    name?: string
-  }) => {
-    const { children, ...otherProps } = props
+  export const FormItem = memo(
+    (props: {
+      children: React.ReactNode
+      name?: string
+    }) => {
+      const { children, ...otherProps } = props
 
-    return (
-      <StyledForm.Item
-        rules={[
-          {
-            required: true,
-            message: 'Поле должно быть заполнено',
-          },
-        ]}
-        {...otherProps}
-      >
-        {children}
-      </StyledForm.Item>
-    )
-  }
+      return (
+        <StyledForm.Item
+          rules={[
+            {
+              required: true,
+              message: 'Поле должно быть заполнено',
+            },
+          ]}
+          {...otherProps}
+        >
+          {children}
+        </StyledForm.Item>
+      )
+    }
+  )
 
-  export const Button = (props: {
-    children: string
-    buttonType: 'auth' | 'base'
-    htmlType: 'submit'
-  }) => {
-    const { children, buttonType, htmlType } = props
+  export const Button = memo(
+    (props: {
+      children: string
+      buttonType: 'auth' | 'base'
+      htmlType: 'submit'
+    }) => {
+      const { children, buttonType, htmlType } = props
 
-    return (
-      <BaseButton buttonType={buttonType} htmlType={htmlType}>
-        {children}
-      </BaseButton>
-    )
-  }
+      return (
+        <BaseButton
+          buttonType={buttonType}
+          htmlType={htmlType}
+        >
+          {children}
+        </BaseButton>
+      )
+    }
+  )
+
+  Button.displayName = 'Button'
+  FormItem.displayName = 'FormItem'
+  Field.displayName = 'Field'
+  Form.displayName = 'Form'
 }
 
 export { Auth }

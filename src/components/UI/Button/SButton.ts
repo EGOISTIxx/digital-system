@@ -53,11 +53,11 @@ const baseButtonType = css`
 `
 
 export const StyledButton = styled(Button)<{
-  buttonType: 'auth' | 'base'
+  buttontype: 'auth' | 'base'
 }>`
   ${(props) => {
-    const { buttonType } = props
-    switch (buttonType) {
+    const { buttontype } = props
+    switch (buttontype) {
       case 'auth':
         return authButtonType
       case 'base':
