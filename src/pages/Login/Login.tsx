@@ -72,7 +72,7 @@ export const LoginPage: React.FC = () => {
               })
             )
             dispatch(setCredentials(values))
-            navigate('/profile')
+            navigate('/profile', { replace: true })
             resolve(1)
           } else {
             // error emulation
@@ -82,7 +82,7 @@ export const LoginPage: React.FC = () => {
 
             dispatch(setSystemMessage(errorMessage))
             dispatch(setIsModalVisible(true))
-            reject(new Error('Warning'))
+            reject(new Error('Кастомная ошибка'))
           }
         }, 1000)
       })
