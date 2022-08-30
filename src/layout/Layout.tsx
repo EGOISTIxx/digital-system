@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { Header } from '../components/Header/Header'
+import { SystemModal } from '../components/SystemModal/SystemModal'
 
 const LayoutWrapper = styled.div`
   display: flex;
@@ -13,9 +14,12 @@ const LayoutWrapper = styled.div`
 
 export const Layout: React.FC = () => {
   return (
-    <LayoutWrapper>
-      <Header />
-      <Outlet />
-    </LayoutWrapper>
+    <>
+      <LayoutWrapper>
+        <Header />
+        <Outlet />
+      </LayoutWrapper>
+      <SystemModal />
+    </>
   )
 }

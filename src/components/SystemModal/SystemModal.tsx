@@ -1,50 +1,67 @@
-import React, { memo } from 'react'
+import React, { useCallback, useMemo } from 'react'
 
+import { useDispatch, useSelector } from 'react-redux'
+
+import {
+  selectIsModalVisible,
+  selectSystemMessage,
+  setIsModalVisible,
+  setSystemMessage,
+} from '../../store/reducers/systemModal/systemModal.slice'
 import { BaseButton } from '../UI/Button/Button'
 import {
   ModalDescription,
   StyledModal,
 } from './SSystemModal'
 
-export const SystemModal = memo(
-  (props: {
-    code: string
-    title: string
-    type: 'info' | 'success' | 'error'
-    description: string
-    isVisible: boolean
-    onCancel?: () => void
-    onOk?: () => void
-  }) => {
-    const {
-      description,
-      title,
-      isVisible,
-      onCancel,
-      onOk,
-    } = props
-    //TODO: make several types of modal, like Error/Success
+export const SystemModal = () => {
+  //TODO: make several types of modal, like Error/Success
+  const initialModalState = useMemo(
+    () => ({
+      isModalVisible: false,
+      systemMessage: {
+        title: '',
+        description: '',
+      },
+    }),
+    []
+  )
 
-    const customFooter = () => {
-      return (
-        <BaseButton buttonType="base" onClick={onOk}>
-          Закрыть
-        </BaseButton>
-      )
-    }
+  const dispatch = useDispatch()
+  const isModalVisible = useSelector(selectIsModalVisible)
+  const systemMessage = useSelector(selectSystemMessage)
 
+  const { title, description } = systemMessage
+
+  const handleCloseModal = useCallback(() => {
+    dispatch(
+      setIsModalVisible(initialModalState.isModalVisible)
+    )
+    dispatch(
+      setSystemMessage(initialModalState.systemMessage)
+    )
+  }, [setIsModalVisible, setSystemMessage])
+
+  const customFooter = () => {
     return (
-      <StyledModal
-        visible={isVisible}
-        title={title}
-        onCancel={onCancel}
-        onOk={onOk}
-        footer={customFooter()}
+      <BaseButton
+        buttonType="base"
+        onClick={handleCloseModal}
       >
-        <ModalDescription>{description}</ModalDescription>
-      </StyledModal>
+        Закрыть
+      </BaseButton>
     )
   }
-)
 
-SystemModal.displayName = 'SystemModal'
+  return (
+    <StyledModal
+      visible={isModalVisible}
+      title={title}
+      onCancel={handleCloseModal}
+      onOk={handleCloseModal}
+      footer={customFooter()}
+    >
+      <ModalDescription>{description}</ModalDescription>
+    </StyledModal>
+  )
+}
