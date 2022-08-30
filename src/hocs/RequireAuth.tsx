@@ -2,7 +2,6 @@ import React from 'react'
 
 import { useSelector } from 'react-redux'
 import {
-  useLocation,
   Navigate,
   Outlet,
 } from 'react-router-dom'
@@ -13,16 +12,11 @@ const RequireAuth = () => {
   const isUserAuthenticated = useSelector(
     selectIsAuthenticated
   )
-  const location = useLocation()
 
   return isUserAuthenticated ? (
     <Outlet />
   ) : (
-    <Navigate
-      to="/auth/login"
-      state={{ from: location }}
-      replace
-    />
+    <Navigate to="/auth/login" replace />
   )
 }
 
