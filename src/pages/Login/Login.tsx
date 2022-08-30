@@ -25,6 +25,7 @@ import { ILogin } from '../../types/auth'
 import { FormWrapper, LoginPageWrapper } from './SLogin'
 
 export const LoginPage: React.FC = () => {
+  // пример работы с сервисом для логина пользователя, соответсвенно, когда будет рест апи или граф куэль
   const [login] = useLoginMutation()
 
   const dispatch = useDispatch()
