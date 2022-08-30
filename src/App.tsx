@@ -1,11 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import { useSelector } from 'react-redux'
-import {
-  useLocation,
-  useNavigate,
-  useRoutes,
-} from 'react-router-dom'
+import { Navigate, useRoutes } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 
 import { theme } from './global/Theme'
@@ -22,18 +18,7 @@ const App = () => {
     selectIsAuthenticated
   )
 
-  const navigate = useNavigate()
-  
-  const location = useLocation()
-
-  useEffect(() => {
-    if (
-      location.pathname === '/auth/login' &&
-      isUserAuthenticated
-    ) {
-      navigate('/profile', { replace: true })
-    }
-  }, [location, navigate, isUserAuthenticated])
+  console.log('render')
 
   const routes = useRoutes([
     {
@@ -60,7 +45,11 @@ const App = () => {
       ],
     },
     {
-      element: <LoginPage />,
+      element: isUserAuthenticated ? (
+        <Navigate to={'/profile'} replace />
+      ) : (
+        <LoginPage />
+      ),
       path: '/auth/login',
     },
   ])
