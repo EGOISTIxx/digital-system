@@ -1,8 +1,10 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import { ReactComponent as LogoutLogo } from '../../../../assets/icons/logout.svg'
 
-export const LogoutWrapper = styled.div`
+export const LogoutWrapper = styled.div<{
+  isMobile: boolean
+}>`
   position: absolute;
   right: 2rem;
   top: 0;
@@ -10,6 +12,18 @@ export const LogoutWrapper = styled.div`
   display: flex;
   align-items: center;
   column-gap: 0.5rem;
+
+  ${(props) => {
+    if (props.isMobile) {
+      return css`
+        position: relative;
+        top: 5px;
+        right: 0;
+        display: flex;
+        justify-content: center;
+      `
+    }
+  }}
 `
 
 export const UserData = styled.span`
