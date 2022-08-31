@@ -15,7 +15,11 @@ import {
   UserData,
 } from './SUser'
 
-export const User = () => {
+export const User = (props: {
+  handleClickHidePopover?: () => void
+}) => {
+  const { handleClickHidePopover } = props
+
   const userData = useSelector(selectCurrentUser)
 
   const dispatch = useDispatch()
@@ -28,6 +32,7 @@ export const User = () => {
 
   const handleLogout = useCallback(() => {
     dispatch(logout())
+    handleClickHidePopover()
 
     // TODO: create routes file and update this method
     if (location.pathname === '/profile') {
@@ -36,7 +41,7 @@ export const User = () => {
 
     localStorage.removeItem('userData')
     localStorage.removeItem('isUserAuthenticated')
-  }, [])
+  }, [location])
 
   if (userData === null) return
 

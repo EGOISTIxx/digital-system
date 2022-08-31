@@ -123,7 +123,7 @@ export const LoginPage: React.FC = () => {
         case Login.password:
           setFieldData(
             form,
-            !/([^А-Яа-я])+/g.test(value),
+            /([А-Яа-я])/g.test(value),
             value,
             Login.password
           )
@@ -163,7 +163,7 @@ export const LoginPage: React.FC = () => {
             </Form>
           </Auth>
         </FormWrapper>
-        {(!isTablet && !isMobile) && (
+        {!isTablet && !isMobile && (
           <Image image={LoginBannerSVG} />
         )}
       </LoginPageWrapper>

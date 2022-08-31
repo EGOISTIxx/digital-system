@@ -1,4 +1,8 @@
-import React, { useMemo } from 'react'
+import React, {
+  useCallback,
+  useMemo,
+  useState,
+} from 'react'
 
 import { MenuOutlined } from '@ant-design/icons'
 
@@ -7,30 +11,44 @@ import { NavBar } from '../NavBar/NavBar'
 import { User } from '../User/User'
 import { StyledPopover } from './SPopoverMenu'
 
-export const PopoverMenu = React.forwardRef((_, ref) => {
+export const PopoverMenu = () => {
+  const [isVisible, setIsVisible] = useState(false)
+
+  const handleChange = useCallback(
+    (newVisible: boolean) => {
+      setIsVisible(newVisible)
+    },
+    [isVisible]
+  )
+
+  const handleClickHidePopover = useCallback(() => {
+    setIsVisible(false)
+  }, [setIsVisible])
+
   const content = useMemo(
     () => (
       <>
         <NavBar />
-        <User />
+        <User
+          handleClickHidePopover={handleClickHidePopover}
+        />
       </>
     ),
-    []
+    [handleClickHidePopover]
   )
 
   return (
     <StyledPopover
-      ref={ref}
+      visible={isVisible}
       title="Меню"
       content={content}
       trigger="click"
       placement="bottomRight"
+      onVisibleChange={handleChange}
     >
       <BaseButton buttonType="base">
         <MenuOutlined />
       </BaseButton>
     </StyledPopover>
   )
-})
-
-PopoverMenu.displayName = 'PopoverMenu'
+}

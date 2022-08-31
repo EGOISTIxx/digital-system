@@ -19,8 +19,8 @@ import {
 } from 'redux-persist'
 
 import { authAPI } from '../service/auth/authApi'
-import { userReducer } from './reducers/user/user.slice'
 import { systemModalReducder } from './reducers/systemModal/systemModal.slice'
+import { userReducer } from './reducers/user/user.slice'
 import { RESET_STATE_ACTION_TYPE } from './resetState'
 
 const reducers = {
