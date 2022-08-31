@@ -66,9 +66,7 @@ const imageInlineSizeLimit = parseInt(
 
 const useTypeScript = fs.existsSync(paths.appTsConfig)
 
-const useTailwind = fs.existsSync(
-  path.join(paths.appPath, 'tailwind.config.js')
-)
+const swSrc = paths.swSrc
 
 const cssRegex = /\.css$/
 const cssModuleRegex = /\.module\.css$/
@@ -120,33 +118,19 @@ module.exports = function () {
           postcssOptions: {
             ident: 'postcss',
             config: false,
-            plugins: !useTailwind
-              ? [
-                  'postcss-flexbugs-fixes',
-                  [
-                    'postcss-preset-env',
-                    {
-                      autoprefixer: {
-                        flexbox: 'no-2009',
-                      },
-                      stage: 3,
-                    },
-                  ],
-                  'postcss-normalize',
-                ]
-              : [
-                  'tailwindcss',
-                  'postcss-flexbugs-fixes',
-                  [
-                    'postcss-preset-env',
-                    {
-                      autoprefixer: {
-                        flexbox: 'no-2009',
-                      },
-                      stage: 3,
-                    },
-                  ],
-                ],
+            plugins: [
+              'postcss-flexbugs-fixes',
+              [
+                'postcss-preset-env',
+                {
+                  autoprefixer: {
+                    flexbox: 'no-2009',
+                  },
+                  stage: 3,
+                },
+              ],
+              'postcss-normalize',
+            ],
           },
           sourceMap: isEnvProduction
             ? shouldUseSourceMap
