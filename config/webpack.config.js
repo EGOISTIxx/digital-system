@@ -14,7 +14,6 @@ const {
   WebpackManifestPlugin,
 } = require('webpack-manifest-plugin')
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin')
-const WorkboxWebpackPlugin = require('workbox-webpack-plugin')
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin')
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
 const ESLintPlugin = require('eslint-webpack-plugin')
@@ -74,10 +73,6 @@ const swSrc = paths.swSrc
 
 const cssRegex = /\.css$/
 const cssModuleRegex = /\.module\.css$/
-const sassRegex = /\.(scss|sass)$/
-const sassModuleRegex = /\.module\.(scss|sass)$/
-const lessRegex = /\.less$/
-const lessModuleRegex = /\.module\.less$/
 
 const hasJsxRuntime = (() => {
   if (process.env.DISABLE_NEW_JSX_TRANSFORM === 'true') {
@@ -439,68 +434,6 @@ module.exports = function () {
                 },
               }),
             },
-            // LESS
-            {
-              test: lessRegex,
-              exclude: lessModuleRegex,
-              use: getStyleLoaders({
-                importLoaders: 2,
-                sourceMap: isEnvProduction
-                  ? shouldUseSourceMap
-                  : isEnvDevelopment,
-                modules: {
-                  mode: 'icss',
-                },
-              }),
-              sideEffects: true,
-            },
-            {
-              test: lessModuleRegex,
-              use: getStyleLoaders({
-                importLoaders: 2,
-                sourceMap: isEnvProduction
-                  ? shouldUseSourceMap
-                  : isEnvDevelopment,
-                modules: {
-                  mode: 'local',
-                  getLocalIdent: getCSSModuleLocalIdent,
-                },
-              }),
-            },
-            // SASS
-            {
-              test: sassRegex,
-              exclude: sassModuleRegex,
-              use: getStyleLoaders(
-                {
-                  importLoaders: 3,
-                  sourceMap: isEnvProduction
-                    ? shouldUseSourceMap
-                    : isEnvDevelopment,
-                  modules: {
-                    mode: 'icss',
-                  },
-                },
-                'sass-loader'
-              ),
-              sideEffects: true,
-            },
-            {
-              test: sassModuleRegex,
-              use: getStyleLoaders(
-                {
-                  importLoaders: 3,
-                  sourceMap: isEnvProduction
-                    ? shouldUseSourceMap
-                    : isEnvDevelopment,
-                  modules: {
-                    mode: 'local',
-                    getLocalIdent: getCSSModuleLocalIdent,
-                  },
-                },
-                'sass-loader'
-              ),
-            },
             {
               exclude: [
                 /^$/,
@@ -585,18 +518,6 @@ module.exports = function () {
         resourceRegExp: /^\.\/locale$/,
         contextRegExp: /moment$/,
       }),
-      isEnvProduction &&
-        fs.existsSync(swSrc) &&
-        new WorkboxWebpackPlugin.InjectManifest({
-          swSrc,
-          dontCacheBustURLsMatching: /\.[0-9a-f]{8}\./,
-          exclude: [
-            /\.map$/,
-            /asset-manifest\.json$/,
-            /LICENSE/,
-          ],
-          maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
-        }),
       useTypeScript &&
         new ForkTsCheckerWebpackPlugin({
           async: isEnvDevelopment,
