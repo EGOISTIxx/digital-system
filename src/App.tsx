@@ -18,8 +18,6 @@ const App = () => {
     selectIsAuthenticated
   )
 
-  console.log('render')
-
   const routes = useRoutes([
     {
       element: <Layout />,
