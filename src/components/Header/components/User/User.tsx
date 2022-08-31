@@ -32,7 +32,10 @@ export const User = (props: {
 
   const handleLogout = useCallback(() => {
     dispatch(logout())
-    handleClickHidePopover()
+    
+    if (handleClickHidePopover) {
+      handleClickHidePopover()
+    }
 
     // TODO: create routes file and update this method
     if (location.pathname === '/profile') {
