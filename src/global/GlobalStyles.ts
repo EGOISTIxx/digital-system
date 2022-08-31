@@ -57,4 +57,20 @@ export const GlobalStyles = createGlobalStyle`
       outline: 0;
     }
   }
+
+  .ant-popover {
+    .ant-popover-arrow {
+      .ant-popover-arrow-content::before {
+        background: #6C757D;
+      }
+    }
+
+    .ant-popover-inner {
+      background: #6C757D;
+
+      .ant-popover-title {
+        color: #FFFFFF;
+      }
+    }
+  }
 `

@@ -18,6 +18,8 @@ const App = () => {
     selectIsAuthenticated
   )
 
+  console.log('render')
+
   const routes = useRoutes([
     {
       element: <Layout />,
@@ -40,15 +42,15 @@ const App = () => {
             },
           ],
         },
+        {
+          element: isUserAuthenticated ? (
+            <Navigate to={'/profile'} replace />
+          ) : (
+            <LoginPage />
+          ),
+          path: '/auth/login',
+        },
       ],
-    },
-    {
-      element: isUserAuthenticated ? (
-        <Navigate to={'/profile'} replace />
-      ) : (
-        <LoginPage />
-      ),
-      path: '/auth/login',
     },
   ])
 

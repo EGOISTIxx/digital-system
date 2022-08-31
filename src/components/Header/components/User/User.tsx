@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useLocation } from 'react-router-dom'
 
 import { ReactComponent as UserLogo } from '../../../../assets/icons/userLogo.svg'
+import { useMedia } from '../../../../hooks/useMedia'
 import {
   logout,
   selectCurrentUser,
@@ -23,6 +24,8 @@ export const User = () => {
 
   const location = useLocation()
 
+  const { isMobile } = useMedia()
+
   const handleLogout = useCallback(() => {
     dispatch(logout())
 
@@ -38,7 +41,7 @@ export const User = () => {
   if (userData === null) return
 
   return (
-    <LogoutWrapper>
+    <LogoutWrapper isMobile={isMobile}>
       <UserLogo />
       <UserData>{userData.login}</UserData>
       <StyledLogoutLogo onClick={handleLogout} />

@@ -1,4 +1,9 @@
-import React, { useCallback, useMemo } from 'react'
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+} from 'react'
 
 import { Form as AntdForm } from 'antd'
 import { useDispatch } from 'react-redux'
@@ -25,6 +30,7 @@ import { ILogin } from '../../types/auth'
 import { FormWrapper, LoginPageWrapper } from './SLogin'
 
 export const LoginPage: React.FC = () => {
+  const timer = useRef(null)
   // пример работы с сервисом для логина пользователя, соответсвенно, когда будет рест апи или граф куэль
   const [login] = useLoginMutation()
 
@@ -44,11 +50,17 @@ export const LoginPage: React.FC = () => {
     []
   )
 
+  useEffect(() => {
+    return () => {
+      clearTimeout(timer.current)
+    }
+  })
+
   const handleFinish = useCallback(
     async (values: ILogin) => {
       await new Promise((resolve, reject) => {
         // то что тут выводится ошибка в консоли - норма потому что есть реджект на 84 строке
-        setTimeout(() => {
+        timer.current = setTimeout(() => {
           // TODO: replace to try/catch construction when app will be grow
           if (
             values.login === config.userData.login &&
