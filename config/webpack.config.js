@@ -14,6 +14,7 @@ const {
   WebpackManifestPlugin,
 } = require('webpack-manifest-plugin')
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin')
+const WorkboxWebpackPlugin = require('workbox-webpack-plugin')
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin')
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
 const ESLintPlugin = require('eslint-webpack-plugin')
@@ -68,8 +69,6 @@ const useTypeScript = fs.existsSync(paths.appTsConfig)
 const useTailwind = fs.existsSync(
   path.join(paths.appPath, 'tailwind.config.js')
 )
-
-const swSrc = paths.swSrc
 
 const cssRegex = /\.css$/
 const cssModuleRegex = /\.module\.css$/
@@ -518,6 +517,18 @@ module.exports = function () {
         resourceRegExp: /^\.\/locale$/,
         contextRegExp: /moment$/,
       }),
+      isEnvProduction &&
+        fs.existsSync(swSrc) &&
+        new WorkboxWebpackPlugin.InjectManifest({
+          swSrc,
+          dontCacheBustURLsMatching: /\.[0-9a-f]{8}\./,
+          exclude: [
+            /\.map$/,
+            /asset-manifest\.json$/,
+            /LICENSE/,
+          ],
+          maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+        }),
       useTypeScript &&
         new ForkTsCheckerWebpackPlugin({
           async: isEnvDevelopment,
